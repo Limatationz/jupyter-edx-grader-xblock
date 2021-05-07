@@ -30,8 +30,9 @@ setup(
     ],
     install_requires=[
         'XBlock',
-        'nbgrader',
-        'nbformat'
+        'nbgrader==0.6.1',
+        'nbformat',
+        'nbconvert==5.6.1'
     ],
     entry_points={
         'xblock.v1': [
