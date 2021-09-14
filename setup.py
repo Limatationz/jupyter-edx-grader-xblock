@@ -32,7 +32,8 @@ setup(
         'XBlock',
         'nbgrader==0.6.1',
         'nbformat',
-        'nbconvert==5.6.1'
+        'nbconvert==5.6.1',
+        'kotlin-jupyter-kernel'
     ],
     entry_points={
         'xblock.v1': [
