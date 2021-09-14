@@ -1,4 +1,6 @@
-# Graded Jupyter Notebook Integration
+# Graded Jupyter Notebook Integration - Kotlin Edition
+
+The XBlock has been modified so that Jupyter notebooks can be rated in the Kotlin programming language.
 
 ## Overview
 
