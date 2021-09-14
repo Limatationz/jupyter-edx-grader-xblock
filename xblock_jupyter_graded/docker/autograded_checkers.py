@@ -23,9 +23,8 @@ class ModuleNotFoundChecker(BaseChecker):
         if cell.get('outputs'):
             output = cell['outputs']
             for output in cell['outputs']:
-                if output.get('ename', '') == 'ModuleNotFoundError':
+                if output.get('ename', ' ') == 'AssertionError':
                     raise ValidationError(output['evalue'])
-
 
 
 
