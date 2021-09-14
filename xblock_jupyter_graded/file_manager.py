@@ -57,7 +57,7 @@ def save_instructor_nb(course_id, unit_id, f):
         os.makedirs(os.path.join(EDX_ROOT, course_id, SOURCE, unit_id))
 
     nb_path = os.path.join(EDX_ROOT, course_id, SOURCE, unit_id, f.filename)
-    with open(nb_path, "w") as nb:
+    with open(nb_path, "wb") as nb:
         nb.write(f.file.read())
 
     log.info("Wrote file: {}".format(nb_path))
@@ -70,7 +70,7 @@ def save_student_nb(username, course_id, unit_id, f):
         os.makedirs(student_path)
 
     nb_path = os.path.join(EDX_ROOT, course_id, SUBMITTED, username, unit_id, f.filename)
-    with open(nb_path, "w") as nb:
+    with open(nb_path, "wb") as nb:
         nb.write(f.file.read())
 
     log.info("Wrote file: {}".format(nb_path))
@@ -120,7 +120,8 @@ def create_temp_config(config_lines):
     """
     fd = tempfile.NamedTemporaryFile(mode='w+t', delete=False)
     fd.write("c = get_config()\n")
-    fd.write("c.ExecutePreprocessor.kernel_name = 'temp_env'\n")
+    fd.write("c.ExecutePreprocessor.kernel_name = 'kotlin'\n")
+    fd.write("c.ClearSolutions.code_stub = {'python': '# YOUR CODE HERE\nraise NotImplementedError()', 'kotlin': '// YOUR CODE HERE'\n")
     for line in config_lines:
         fd.write("c.{}\n".format(line))
     fd.close()
@@ -132,11 +133,3 @@ def create_temp_config(config_lines):
         log.info("removed temp config file: {}".format(fd.name))
     else:
         log.warning("Temp config file: {} did not exist".format(fd.name))
-
-
-        
-
-
-
-    
-
