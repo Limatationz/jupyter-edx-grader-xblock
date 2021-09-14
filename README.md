@@ -2,10 +2,10 @@
 
 The XBlock has been modified so that Jupyter notebooks can be rated in the Kotlin programming language.
 
-Make sure that the directory `xblock_jupyter_graded` is in your python path. Otherwise it could cause an error in `nbgrader_utils.py`. Workaround: add this lines to the top of the file:
+Make sure that the directory `xblock_jupyter_graded` is in your python path. Otherwise it could cause an error in `nbgrader_utils.py` and `xblock_jupyter_graded.py`. Workaround: add this lines to the top of the files:
 
 `import sys
-sys.path.insert(1, '/opt/bitnami/apps/edx/venvs/edxapp/lib/python3.8/site-packages/xblock_jupyter_graded')`
+sys.path.insert(1, '_to-your-python_/python3.8/site-packages/xblock_jupyter_graded')`
 
 Original Documentation by IBL Education:
 
