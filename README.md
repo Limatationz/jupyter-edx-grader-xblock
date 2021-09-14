@@ -2,6 +2,8 @@
 
 The XBlock has been modified so that Jupyter notebooks can be rated in the Kotlin programming language.
 
+Original Documentation by IBL Education:
+
 ## Overview
 
 _Auto-grade a student assignment created as a Jupyter notebook, using the [nbgrader](http://nbgrader.readthedocs.io/en/stable/) Jupyter extension, and write the score in the Open edX gradebook_ 
