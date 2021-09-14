@@ -243,6 +243,9 @@ class AutoGradeContainer(BaseContainer):
             '--assignment', self.pset_id,
             '--notebook', os.path.splitext(self.nb_filename)[0],
         ]
+        import logging
+        logging.warning(args)  # will print a message to the console
+
         p = Popen(args, stderr=PIPE, stdout=PIPE)
         out, err = p.communicate()
 
@@ -334,6 +337,3 @@ class AutoGradeContainer(BaseContainer):
         # NOTE: as_version should be...?
         nb = nbformat.reads(raw, as_version=4)
         return nb
-
-
-
