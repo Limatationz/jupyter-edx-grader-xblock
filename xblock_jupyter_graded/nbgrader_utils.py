@@ -4,6 +4,7 @@ import os
 import pkg_resources
 from subprocess import Popen, PIPE
 
+
 from config import (
     RELEASE, SUBMITTED, SOURCE, AUTOGRADED, FEEDBACK, EDX_ROOT, CONT_ROOT
 )
@@ -84,14 +85,16 @@ def _run_assign_container(nb_filename, course_id, unit_id):
     cont_release_path = os.path.join(CONT_ROOT, RELEASE, 'ps1')
 
     cmd = [
-        'sudo', '-u', 'jupyter', 'docker', 'run', '-t',
+        'docker', 'run', '-t',
         '-v', "{}:{}".format(host_source_path, cont_source_path),
         '-v', "{}:{}".format(host_release_path, cont_release_path),
         course_id.lower(), 'python', '/home/jupyter/run_grader.py', 
         '--cmd', 'assign',
         '--nbname', nb_filename,
     ]
-    p = Popen(cmd, stderr=PIPE, stdout=PIPE)
+
+    local_env = os.environ.copy()
+    p = Popen(cmd, stderr=PIPE, stdout=PIPE, env=local_env )
     out, err = p.communicate()
 
     if p.returncode != 0:
@@ -141,7 +144,7 @@ def _run_autograde_container(nb_filename, course_id, unit_id, username,
         cont_config_path = os.path.join("/etc", "jupyter", "nbgrader_config.py")
 
         cmd = [
-            'sudo', '-u', 'jupyter', 'docker', 'run', '-t',
+            'docker', 'run', '-t',
             '-v', "{}:{}:ro".format(host_source_path, cont_source_path),
             '-v', "{}:{}:ro".format(host_submitted_path, cont_submitted_path),
             '-v', "{}:{}".format(host_autograded_path, cont_autograded_path),
@@ -160,12 +163,13 @@ def _run_autograde_container(nb_filename, course_id, unit_id, username,
             '--nbname', nb_filename,
             '--username', username,
         ]
-        
-        p = Popen(cmd, stderr=PIPE, stdout=PIPE)
+        log.info(cmd)
+        local_env = os.environ.copy()
+        p = Popen(cmd, stderr=PIPE, stdout=PIPE, env=local_env)
         out, err = p.communicate()
-
+        log.info(out)
         if p.returncode != 0:
-            raise DockerContainerError(err.decode('utf-8'));
+            raise DockerContainerError(err.decode('utf-8'))
 
     # Get and read results
     nb_name = os.path.splitext(nb_filename)[0]
@@ -175,6 +179,8 @@ def _run_autograde_container(nb_filename, course_id, unit_id, username,
     
     if not results['success']:
         raise DockerContainerError(results['err'])
+    log.info("total score: %s" % results['total_score'])
+    log.info("section score: %s" % results['section_scores'])
     return {
         'total': results['total_score'],
         'section_scores': results['section_scores'],
@@ -212,6 +218,3 @@ def build_container_if_not_exists(course_id):
         log.info("Containter: {} did not exist, building...".format(course_id))
         manager.build_container()
         manager.cleanup()
-
-
-
