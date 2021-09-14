@@ -4,7 +4,7 @@ from subprocess import Popen, PIPE
 import pkg_resources
 
 from config import EDX_ROOT
-from models import Requirement
+from xblock_jupyter_graded.models import Requirement
 from exceptions import DockerBuildError
 
 log = logging.getLogger(__name__)
@@ -144,8 +144,7 @@ class ContainerManager(object):
 
         if not found:
             log.info("Added ipykernel to package list")
-            package_strs.append('ipykernel')
-
+            package_strs.append('kotlin-jupyter-kernel')
         return package_strs
 
 
@@ -177,10 +176,3 @@ class ContainerManager(object):
             log.debug(err)
             raise DockerBuildError(out.decode('utf-8'))
         log.info(out.decode('utf-8'))
-
-
-        
-
-
-
-
