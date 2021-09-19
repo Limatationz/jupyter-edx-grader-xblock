@@ -1,11 +1,22 @@
 # Graded Jupyter Notebook Integration - Kotlin Edition
 
-The XBlock has been modified so that Jupyter notebooks can be rated in the Kotlin programming language.
+The XBlock has been modified so that Jupyter notebooks can be rated in the Kotlin programming language. It is tested with a Bitnami version of OpenEdx (koa.1).
+
+## General Tipps
 
 Make sure that the directory `xblock_jupyter_graded` is in your python path. Otherwise it could cause an error in `nbgrader_utils.py` and `xblock_jupyter_graded.py`. Workaround: add this lines to the top of the files:
 
 `import sys
 sys.path.insert(1, 'TO_YOUR_PYTHON/python3.8/site-packages/xblock_jupyter_graded')`
+
+## How to prepare the instructor notebook
+
+Solution cells are marked with `// BEGIN SOLUTION` and `// END SOLUTION` at the end. If you want to use autograding, the error that is being searched for is `AssertionError`. If this is thrown, no points were given.
+
+## XBlock Appeareance
+
+The studentview was translated to German. So if you have an english target group, you have to change the language of the view back to english in `xblock_jupyter_graded.py`.
+
 
 Original Documentation by IBL Education:
 
