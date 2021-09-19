@@ -18,7 +18,7 @@ Solution cells are marked with `// BEGIN SOLUTION` and `// END SOLUTION` at the 
 The studentview was translated to German. So if you have an english target group, you have to change the language of the view back to english in `xblock_jupyter_graded.py`.
 
 
-Original Documentation by IBL Education:
+# Original Documentation by IBL Education:
 
 ## Overview
 
