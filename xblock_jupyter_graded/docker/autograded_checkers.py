@@ -3,7 +3,7 @@ from exceptions import ValidationError
 class BaseChecker(object):
     """Base class for checking autograded cells for errors"""
     def check_cell(self, cell):
-        """Should raise ValidationError if error found"""
+        """Should raise NotImplementedError if error found"""
         raise NotImplementedError()
     
     def finalize(self):
@@ -12,7 +12,7 @@ class BaseChecker(object):
     
 
 class ModuleNotFoundChecker(BaseChecker):
-    """Checks for `ModuleNotFoundError`
+    """Checks for `ValidationError`
     
     This error does not cause any notebook grading errors, but can cause a 
     student to get a 0 score, especially if the instructor imports a module
